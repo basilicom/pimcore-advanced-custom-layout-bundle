@@ -11,11 +11,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Basilicom\\AdvancedCustomLayoutBundle\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
+      "Basilicom\\AdvancedCustomLayoutBundle\\": "src/",
       "Tests\\Unit\\": "tests/unit"
     }
   },

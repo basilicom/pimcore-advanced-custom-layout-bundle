@@ -18,7 +18,7 @@ class CustomLayoutConfigFactory
             (array) $layoutData[Configuration::AUTO_APPLY_WORKFLOW_STATES],
             array_filter(
                 array_map(
-                    fn ($configData, $key) => $this->createFieldConfig($key, $configData),
+                    fn($configData, $key) => $this->createFieldConfig($key, $configData),
                     $layoutData[Configuration::FIELDS],
                     array_keys($layoutData[Configuration::FIELDS])
                 )
@@ -28,7 +28,7 @@ class CustomLayoutConfigFactory
 
     private function createFieldConfig(string $fieldId, array $fieldConfigData): ?CustomLayoutConfig\FieldConfig
     {
-        $filteredConfigData = array_filter($fieldConfigData, fn ($data) => !is_null($data));
+        $filteredConfigData = array_filter($fieldConfigData, fn($data) => !is_null($data));
         if (empty($filteredConfigData)) {
             return null;
         }
