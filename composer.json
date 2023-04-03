@@ -14,8 +14,16 @@
       "Basilicom\\AdvancedCustomLayoutBundle\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\Unit\\": "tests/unit"
+    }
+  },
   "require": {
     "php": ">=8.0",
     "pimcore/pimcore": ">=10"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5"
   }
 }
