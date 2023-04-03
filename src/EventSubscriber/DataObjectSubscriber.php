@@ -88,8 +88,7 @@ class DataObjectSubscriber implements EventSubscriberInterface
     private function applyCustomLayout(CustomLayoutConfig $layoutConfig, Concrete $object, array $data): array
     {
         $data['currentLayoutId'] = 0;
-        $layoutId = CustomLayoutService::getLayoutId($layoutConfig, $object);
-        $customLayout = CustomLayout::getById($layoutId);
+        $customLayout = CustomLayout::getById($layoutConfig->getLayoutIdentifier());
         if ($customLayout instanceof CustomLayout) {
             $data['currentLayoutId'] = $customLayout->getId();
             $data['layout'] = $customLayout->getLayoutDefinitions();

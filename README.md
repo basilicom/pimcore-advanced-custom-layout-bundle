@@ -2,6 +2,22 @@
 
 Configure and create custom layouts without drag and drop.
 
+## Usecase
+Sometimes you might have to create multiple custom layouts for multiple dataObjects.
+Additionally, you want to only adapt one field while keeping the rest always the same.
+The current Pimcore implementation makes it necessary to adapt all custom layouts as soon as you ClassDefinition changes.
+**Therefor we created this bundle.**
+
+Here you can simply adapt visibility and editability of fields without having to drag and drop them again.
+
+Main features:
+- saving a ClassDefinition will also recreate the custom layouts
+- decide wether you want to show all fields and adapt only mentioned ones or if you want to only show the mentioned fields
+- define roles and workflow states which will automatically apply the custom layout
+
+**Note:** this bundle will create custom layouts but taking the default class's layout definition and adapt the field-attributes.
+Hidding all fields will still keep layout elements.
+
 ## Installation
 
 ```
@@ -29,7 +45,7 @@ Pimcore\Model\DataObject\TestObject:
 ```
 
 - `Pimcore\Model\DataObject\TestObject:` is the class name of the object you want to configure the custom layout for.
-- `custom_layout` is the name of the custom layout. You can define multiple custom layouts for one class.
+- `custom_layout` is the identifier of the custom layout. You can define multiple custom layouts for one class.
 - `label` is the label of the custom layout which will be displayed in the object edit mode.
 - `mode` is the mode of the custom layout. See below for more information.
 - `auto_apply_roles` is an array of roles which will automatically apply this custom layout.
@@ -104,7 +120,11 @@ The file will be created in `project/var/bundles/AdvancedCustomLayouts/CustomLay
 
 ## TODOs
 
-- FieldCollections, ObjectBricks are not supported yet
+- new mode to extend existing custom layouts, this is usefull if custom layouts are created by the user beforehand
+    - allow to set layout reference to create a new custom layout by a reference to easily multiple custom layouts
+- ObjectBricks are not supported yet
+- add custom logic to also allow custom layouts for field collections
+- hide layout elements as soon as all child-fields are hidden
 
 # Author
 Alexander Heidrich

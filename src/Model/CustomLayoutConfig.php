@@ -10,7 +10,7 @@ class CustomLayoutConfig
     public const MODE_EDIT = 'edit-listed';
 
     private string $className;
-    private string $layoutName;
+    private string $layoutIdentifier;
     private string $label;
     private string $mode;
     /** @var FieldConfig[] */
@@ -22,7 +22,7 @@ class CustomLayoutConfig
 
     /**
      * @param string        $className
-     * @param string        $layoutName
+     * @param string        $layoutIdentifier
      * @param string        $label
      * @param string        $mode
      * @param string[]      $autoApplyForRoles
@@ -31,7 +31,7 @@ class CustomLayoutConfig
      */
     public function __construct(
         string $className,
-        string $layoutName,
+        string $layoutIdentifier,
         string $label,
         string $mode,
         array $autoApplyForRoles,
@@ -39,7 +39,7 @@ class CustomLayoutConfig
         array $fields
     ) {
         $this->className = $className;
-        $this->layoutName = $layoutName;
+        $this->layoutIdentifier = $layoutIdentifier;
         $this->label = $label;
         $this->mode = $mode;
         $this->autoApplyForRoles = $autoApplyForRoles;
@@ -57,9 +57,9 @@ class CustomLayoutConfig
         return '\\' . ltrim($this->className, '\\');
     }
 
-    public function getLayoutName(): string
+    public function getLayoutIdentifier(): string
     {
-        return $this->layoutName;
+        return $this->layoutIdentifier;
     }
 
     public function getLabel(): string

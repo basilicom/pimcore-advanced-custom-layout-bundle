@@ -49,7 +49,7 @@ class CustomLayoutService
             default => null,
         };
 
-        $layoutId = $this->getLayoutId($layoutConfig, $targetClass);
+        $layoutId = $layoutConfig->getLayoutIdentifier();
         if ($layoutDefinitions) {
             if (!($customLayout = CustomLayout::getById($layoutId))) {
                 $customLayout = new CustomLayout();
@@ -113,6 +113,6 @@ class CustomLayoutService
 
     public static function getLayoutId(CustomLayoutConfig $layoutConfig, Concrete $targetClass): string
     {
-        return $layoutConfig->getLayoutName() . '_' . $targetClass->getClassId();
+        return $layoutConfig->getLayoutIdentifier() . '_' . $targetClass->getClassId();
     }
 }
