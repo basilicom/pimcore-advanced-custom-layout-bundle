@@ -1,0 +1,14 @@
+advanced_custom_layout:
+  # class
+  Pimcore\Model\DataObject\TestObject:
+    # layouts
+    custom_layout:
+      label: "My custom layout"
+      mode: !php/const Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig::MODE_EDIT
+      auto_apply_roles: ["ROLE_PIMCORE_ADMIN"]
+      auto_apply_workflow_states: ["created"]
+      fields:
+        title:
+          title: "Overwritten title"
+          editable: false
+          visible: false

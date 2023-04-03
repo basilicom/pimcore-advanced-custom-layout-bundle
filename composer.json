@@ -1,0 +1,21 @@
+{
+  "name": "basilicom/pimcore-advanced-custom-layout-bundle",
+  "description": "Configure and create custom layouts without drag and drop.",
+  "type": "pimcore-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "basilicom",
+      "email": "alexander.heidrich@basilicom.de"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Basilicom\\AdvancedCustomLayoutBundle\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.0",
+    "pimcore/pimcore": ">=10"
+  }
+}
