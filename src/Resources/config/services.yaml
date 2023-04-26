@@ -10,8 +10,8 @@ services:
     public: false
 
   Basilicom\AdvancedCustomLayoutBundle\Command\:
-      resource: '../../Command/*'
-      tags: [ 'console.command' ]
+    resource: '../../Command/*'
+    tags: [ 'console.command' ]
 
   DataObjectSubscriber:
     class: Basilicom\AdvancedCustomLayoutBundle\EventSubscriber\DataObjectSubscriber
