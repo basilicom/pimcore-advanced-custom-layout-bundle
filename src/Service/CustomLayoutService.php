@@ -4,6 +4,7 @@ namespace Basilicom\AdvancedCustomLayoutBundle\Service;
 
 use Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig;
 use Exception;
+use Pimcore\Cache\RuntimeCache;
 use Pimcore\Model\DataObject\ClassDefinition;
 use Pimcore\Model\DataObject\ClassDefinition\CustomLayout;
 use Pimcore\Model\DataObject\ClassDefinition\Data;
@@ -25,6 +26,7 @@ class CustomLayoutService
     public function importAllCustomLayouts(): void
     {
         foreach ($this->configurationService->getCustomLayoutConfigs() as $config) {
+            RuntimeCache::clear();
             $this->importCustomLayout($config);
         }
     }
