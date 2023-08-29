@@ -8,14 +8,19 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
-    public const FIELDS = 'fields';
     public const MODE = 'mode';
     public const LABEL = 'label';
     public const AUTO_APPLY_ROLES = 'auto_apply_roles';
+    public const AUTO_APPLY_WORKFLOW_STATES = 'auto_apply_workflow_states';
+
+    public const FIELDS = 'fields';
     public const FIELD_TITLE = 'title';
     public const FIELD_EDITABLE = 'editable';
     public const FIELD_VISIBLE = 'visible';
-    public const AUTO_APPLY_WORKFLOW_STATES = 'auto_apply_workflow_states';
+
+    public const LAYOUT_ELEMENTS = 'layoutElements';
+    public const LAYOUT_ELEMENT_TITLE = 'title';
+    public const LAYOUT_ELEMENT_VISIBLE = 'visible';
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
@@ -47,6 +52,16 @@ class Configuration implements ConfigurationInterface
                                     ->scalarNode(self::FIELD_TITLE)->defaultNull()->end()
                                     ->booleanNode(self::FIELD_EDITABLE)->defaultNull()->end()
                                     ->booleanNode(self::FIELD_VISIBLE)->defaultNull()->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode(self::LAYOUT_ELEMENTS)
+                            ->normalizeKeys(false)
+                            ->useAttributeAsKey('layoutElement')
+                            ->arrayPrototype()
+                                ->children()
+                                    ->scalarNode(self::LAYOUT_ELEMENT_TITLE)->defaultNull()->end()
+                                    ->booleanNode(self::LAYOUT_ELEMENT_VISIBLE)->defaultNull()->end()
                                 ->end()
                             ->end()
                         ->end()

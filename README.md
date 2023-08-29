@@ -30,18 +30,23 @@ An example configuration can be found in `config/packages/example.custom_layouts
 ## Configuration
 
 ```
-Pimcore\Model\DataObject\TestObject:
-    # layouts
-    custom_layout:
-        label: "My custom layout"
-        mode: !php/const Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig::MODE_EDIT
-        auto_apply_roles: []
-        auto_apply_workflow_states: []
-        fields:
-            title:
-                title: "Overwritten Titel"
-                editable: false
-                visible: false
+advanced_custom_layout:
+    Pimcore\Model\DataObject\TestObject:
+        # layouts
+        custom_layout:
+            label: "My custom layout"
+            mode: !php/const Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig::MODE_EDIT
+            auto_apply_roles: []
+            auto_apply_workflow_states: []
+            fields:
+                title:
+                    title: "Overwritten Titel"
+                    editable: false
+                    visible: false
+            layoutElements:
+                Data Quality:
+                    title: "Overwritten Titel"
+                    visible: false
 ```
 
 - `Pimcore\Model\DataObject\TestObject:` is the class name of the object you want to configure the custom layout for.
@@ -55,6 +60,9 @@ Pimcore\Model\DataObject\TestObject:
 - `fields.title.title` is the new label of the field which will be displayed in the object edit mode.
 - `fields.title.editable` is a boolean value which defines if the field is editable or not.
 - `fields.title.visible` is a boolean value which defines if the field is visible or not.
+- `layoutElements.Data Quality` will apply on all LayoutElements which have the name `Data Quality`.
+- `layoutElements.Data Quality.title` overwrites the visible label of the layout element.
+- `layoutElements.Data Quality.visible` determines if the layout element will be visible/added to the custom layout
 
 ## Custom Layout Modes
 
@@ -64,16 +72,17 @@ A custom layout with this setting will consist of all fields of the layout defin
 The provided settings will then overwrite the default settings.
 
 ```
-Pimcore\Model\DataObject\TestObject:
-    # layouts
-    custom_layout:
-        label: "My custom layout"
-        mode: !php/const Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig::MODE_EDIT
-        fields:
-            title:
-                title: "Overwritten Titel"
-                editable: false
-                visible: false
+advanced_custom_layout:
+    Pimcore\Model\DataObject\TestObject:
+        # layouts
+        custom_layout:
+            label: "My custom layout"
+            mode: !php/const Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig::MODE_EDIT
+            fields:
+                title:
+                    title: "Overwritten Titel"
+                    editable: false
+                    visible: false
 ```
 
 In this example we will keep all layout and field definitions but overwrite the title, lock and hide the field.
@@ -84,15 +93,16 @@ A custom layout with this setting will hide all fields which are not defined in 
 Additionally, the provided settings will overwrite the default settings regarding being editable or visible.
 
 ```
-Pimcore\Model\DataObject\TestObject:
-    # layouts
-    custom_layout:
-        label: "My custom layout"
-        mode: !php/const Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig::MODE_SHOW
-        fields:
-            title:
-                title: "Overwritten Titel"
-                editable: false
+advanced_custom_layout:
+    Pimcore\Model\DataObject\TestObject:
+        # layouts
+        custom_layout:
+            label: "My custom layout"
+            mode: !php/const Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig::MODE_SHOW
+            fields:
+                title:
+                    title: "Overwritten Titel"
+                    editable: false
 ```
 
 In this example we will only show the title attribute which is not editable anymore.

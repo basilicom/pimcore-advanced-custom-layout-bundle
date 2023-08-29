@@ -3,6 +3,7 @@
 namespace Basilicom\AdvancedCustomLayoutBundle\Service;
 
 use Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig;
+use Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig\LayoutElementConfig;
 use Exception;
 use Pimcore\Cache\RuntimeCache;
 use Pimcore\Model\DataObject\ClassDefinition;
@@ -67,7 +68,7 @@ class CustomLayoutService
 
     private function overwriteLayout(?ClassDefinition $classDefinition, CustomLayoutConfig $layoutConfig): ?Layout
     {
-        $layoutDefinitions = $classDefinition->getLayoutDefinitions();
+        $layoutDefinition = $classDefinition->getLayoutDefinitions();
         $fieldDefinitions = $classDefinition->getFieldDefinitions();
 
         foreach ($layoutConfig->getFields() as $fieldConfig) {
@@ -80,12 +81,16 @@ class CustomLayoutService
             }
         }
 
-        return $layoutDefinitions;
+        foreach ($layoutConfig->getLayoutElements() as $layoutElementConfig) {
+            $this->adaptLayoutDefinition($layoutElementConfig, $layoutDefinition);
+        }
+
+        return $layoutDefinition;
     }
 
     private function editLayout(?ClassDefinition $classDefinition, CustomLayoutConfig $layoutConfig): ?Layout
     {
-        $layoutDefinitions = $classDefinition->getLayoutDefinitions();
+        $layoutDefinition = $classDefinition->getLayoutDefinitions();
         $fieldDefinitions = $classDefinition->getFieldDefinitions();
 
         foreach ($layoutConfig->getFields() as $fieldConfig) {
@@ -97,7 +102,40 @@ class CustomLayoutService
             }
         }
 
-        return $layoutDefinitions;
+        foreach ($layoutConfig->getLayoutElements() as $layoutElementConfig) {
+            $this->adaptLayoutDefinition($layoutElementConfig, $layoutDefinition);
+        }
+
+        return $layoutDefinition;
+    }
+
+    private function adaptLayoutDefinition(LayoutElementConfig $config, Layout $layoutDefinition): Layout
+    {
+        if ($layoutDefinition->getName() === $config->getElementId()) {
+            if ($config->getTitle() !== null) {
+                $layoutDefinition->setTitle($config->getTitle());
+            }
+        }
+
+        $children = $layoutDefinition->getChildren();
+        if (!empty($children)) {
+            $newChildren = [];
+            foreach ($children as $index => $layoutChild) {
+                if ($layoutChild instanceof Layout) {
+                    if ($layoutChild->getName() === $config->getElementId()) {
+                        if ((bool)$config->getIsVisible() === false) {
+                            continue;
+                        }
+                    }
+                    $newChildren[] = $this->adaptLayoutDefinition($config, $layoutChild);
+                } else {
+                    $newChildren[] = $layoutChild;
+                }
+            }
+            $layoutDefinition->setChildren($newChildren);
+        }
+
+        return $layoutDefinition;
     }
 
     private function adaptFieldDefinition(Data $fieldDefinition, CustomLayoutConfig\FieldConfig $fieldConfig): void

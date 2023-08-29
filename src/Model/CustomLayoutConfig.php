@@ -3,6 +3,7 @@
 namespace Basilicom\AdvancedCustomLayoutBundle\Model;
 
 use Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig\FieldConfig;
+use Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig\LayoutElementConfig;
 
 class CustomLayoutConfig
 {
@@ -19,15 +20,18 @@ class CustomLayoutConfig
     private array $autoApplyForRoles;
     /** @var string[] */
     private array $autoApplyForWorkflowStates;
+    /** @var LayoutElementConfig[] */
+    private array $layoutElements;
 
     /**
-     * @param string        $className
-     * @param string        $layoutIdentifier
-     * @param string        $label
-     * @param string        $mode
-     * @param string[]      $autoApplyForRoles
-     * @param string[]      $autoApplyForWorkflowStates
-     * @param FieldConfig[] $fields
+     * @param string                $className
+     * @param string                $layoutIdentifier
+     * @param string                $label
+     * @param string                $mode
+     * @param string[]              $autoApplyForRoles
+     * @param string[]              $autoApplyForWorkflowStates
+     * @param FieldConfig[]         $fields
+     * @param LayoutElementConfig[] $layoutElements
      */
     public function __construct(
         string $className,
@@ -36,7 +40,8 @@ class CustomLayoutConfig
         string $mode,
         array $autoApplyForRoles,
         array $autoApplyForWorkflowStates,
-        array $fields
+        array $fields,
+        array $layoutElements
     ) {
         $this->className = $className;
         $this->layoutIdentifier = $layoutIdentifier;
@@ -45,6 +50,7 @@ class CustomLayoutConfig
         $this->autoApplyForRoles = $autoApplyForRoles;
         $this->autoApplyForWorkflowStates = $autoApplyForWorkflowStates;
         $this->fields = $fields;
+        $this->layoutElements = $layoutElements;
     }
 
     public function getClassName(): string
@@ -94,5 +100,13 @@ class CustomLayoutConfig
     public function getFields(): array
     {
         return $this->fields;
+    }
+
+    /**
+     * @return LayoutElementConfig[]
+     */
+    public function getLayoutElements(): array
+    {
+        return $this->layoutElements;
     }
 }
