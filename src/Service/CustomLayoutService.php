@@ -94,12 +94,7 @@ class CustomLayoutService
         $fieldDefinitions = $classDefinition->getFieldDefinitions();
 
         foreach ($layoutConfig->getFields() as $fieldConfig) {
-            foreach ($fieldDefinitions as $fieldDefinition) {
-                if ($fieldDefinition->getName() === $fieldConfig->getFieldId()) {
-                    $this->adaptFieldDefinition($fieldDefinition, $fieldConfig);
-                    continue 2;
-                }
-            }
+            $this->handleFieldDefinitions($fieldDefinitions, $fieldConfig);
         }
 
         foreach ($layoutConfig->getLayoutElements() as $layoutElementConfig) {
@@ -108,6 +103,20 @@ class CustomLayoutService
 
         return $layoutDefinition;
     }
+
+    private function handleFieldDefinitions(array $fieldDefinitions, CustomLayoutConfig\FieldConfig $fieldConfig) {
+        foreach ($fieldDefinitions as $fieldDefinition) {
+            if($fieldDefinition instanceof Data\Localizedfields) {
+                $this->handleFieldDefinitions($fieldDefinition->getFieldDefinitions(), $fieldConfig);
+                continue;
+            }
+
+            if ($fieldDefinition->getName() === $fieldConfig->getFieldId()) {
+                $this->adaptFieldDefinition($fieldDefinition, $fieldConfig);
+            }
+        }
+    }
+
 
     private function adaptLayoutDefinition(LayoutElementConfig $config, Layout $layoutDefinition): Layout
     {

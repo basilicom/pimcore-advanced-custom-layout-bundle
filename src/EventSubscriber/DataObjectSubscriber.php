@@ -4,12 +4,11 @@ namespace Basilicom\AdvancedCustomLayoutBundle\EventSubscriber;
 
 use Basilicom\AdvancedCustomLayoutBundle\Model\CustomLayoutConfig;
 use Basilicom\AdvancedCustomLayoutBundle\Service\ConfigurationService;
-use Basilicom\AdvancedCustomLayoutBundle\Service\CustomLayoutService;
-use Pimcore\Bundle\AdminBundle\Security\User\User;
-use Pimcore\Event\AdminEvents;
+use Pimcore\Bundle\AdminBundle\Event\AdminEvents;
 use Pimcore\Model\DataObject\ClassDefinition\CustomLayout;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Service;
+use Pimcore\Security\User\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

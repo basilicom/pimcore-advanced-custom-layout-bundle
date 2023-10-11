@@ -4,3 +4,4 @@
 # webpack
 vendor
 .phpunit.*
+composer.lock

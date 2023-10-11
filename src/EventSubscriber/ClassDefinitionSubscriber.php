@@ -26,7 +26,7 @@ class ClassDefinitionSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onClassDefinitionPostUpdate(ClassDefinitionEvent $event)
+    public function onClassDefinitionPostUpdate(ClassDefinitionEvent $event): void
     {
         $classDefinition = $event->getClassDefinition();
 
